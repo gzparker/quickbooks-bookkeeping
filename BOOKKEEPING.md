@@ -70,6 +70,15 @@ On the GATP Q1 2026 profit-and-loss, income breaks into these categories
 - **Known issue — AMEX Delta Reserve bank feed could not be enabled.** Greg
   must link that card in QBO.
 
+## Deprecated accounts
+
+- **Raymond James Short Term Savings is deprecated.** It was a company account;
+  Greg no longer uses it and it is basically empty.
+- **Do not reconnect its broken bank feed (Error 324).** Instead, disconnect
+  the feed and make the account inactive in QBO.
+- **Keep the historical transactions** — deactivating the account preserves
+  them; do not delete anything.
+
 ## Firms and hand-offs
 
 - **Old bookkeeping team: GATP Solutions** (`accounting@`), worked quarterly.
