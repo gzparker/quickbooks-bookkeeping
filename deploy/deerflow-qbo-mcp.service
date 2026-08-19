@@ -18,22 +18,26 @@ WorkingDirectory=__HOME__/.local/share/qbo-mcp
 # Bind to loopback only. Public reachability is the tunnel's job, and binding
 # to 0.0.0.0 would expose an unauthenticated MCP server on the host's public
 # interface, bypassing Cloudflare Access entirely.
-ExecStart=__MCP_PROXY__ --host 127.0.0.1 --port 8091 -- \
-    /usr/bin/env node __HOME__/.local/share/qbo-mcp/dist/index.js
-
-# Resolved before dotenv loads, so it cannot live in the env file itself.
-# Points the server at a writable store outside the install directory, so a
-# rotated refresh token survives reinstalls and never dirties the git checkout.
-Environment=QUICKBOOKS_TOKEN_STORE_PATH=__HOME__/.qbo/tokens.env
-
-# Read-only deployment. Upstream registers create/update/delete tools by
-# default; these three flags suppress all of them at registration time, so the
-# mutating tools are not merely refused, they are never advertised.
-# Removing any of these grants an agent unaudited write access to the general
-# ledger - upstream has no dry-run, preview, or audit log. See RUNBOOK.md.
-Environment=QUICKBOOKS_DISABLE_WRITE=true
-Environment=QUICKBOOKS_DISABLE_UPDATE=true
-Environment=QUICKBOOKS_DISABLE_DELETE=true
+#
+# The QUICKBOOKS_* values MUST be passed as `-e KEY VALUE` pairs, not via
+# Environment=. mcp-proxy builds the child's environment from scratch:
+#
+#     base_env: dict[str, str] = {}
+#     if args_parsed.pass_environment:
+#         base_env.update(os.environ)
+#
+# and --pass-environment defaults to False. So Environment= would set these on
+# mcp-proxy and they would never reach Node - the three DISABLE flags would
+# silently not apply, and the server would come up with all 142 tools
+# registered including 71 create/update/delete, with nothing in the journal to
+# say so. Verify with the tools/list assertion in RUNBOOK.md after any edit.
+ExecStart=__MCP_PROXY__ \
+    /usr/bin/node __HOME__/.local/share/qbo-mcp/dist/index.js \
+    --host 127.0.0.1 --port 8091 --allow-origin='*' \
+    -e QUICKBOOKS_TOKEN_STORE_PATH __HOME__/.qbo/tokens.env \
+    -e QUICKBOOKS_DISABLE_WRITE true \
+    -e QUICKBOOKS_DISABLE_UPDATE true \
+    -e QUICKBOOKS_DISABLE_DELETE true
 
 Restart=on-failure
 RestartSec=5s
