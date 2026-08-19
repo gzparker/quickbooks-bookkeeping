@@ -49,7 +49,9 @@ on their own; writes wait for the gateway described in `AGENTS.md`.
 | `deploy/deerflow-qbo-mcp.service` | systemd unit template |
 | `deploy/cloudflared-ingress.snippet.yml` | Tunnel ingress stanza to merge by hand |
 | `deploy/qbo-mcp.env.example` | Template for `~/.qbo/tokens.env` |
-| `SECRETS.md` | (gitignored) Credentials reference for new workstations |
+| `SECRETS.md.example` | Template for the credentials reference |
+| `SECRETS.md` | (gitignored) Filled-in credentials reference for new workstations |
+| `docs/tool-surface-evaluation.md` | Measured tool surface, and why "reports first" |
 
 ## Wiring
 

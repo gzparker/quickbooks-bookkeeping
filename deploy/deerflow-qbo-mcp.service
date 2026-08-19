@@ -1,8 +1,8 @@
--- Placeholder substitution required before installing --
---   __SERVICE_USER__  service account that owns ~/.qbo (AdLoop's host user)
---   __HOME__          that user's home directory, absolute
---   __MCP_PROXY__     absolute path to mcp-proxy (`command -v mcp-proxy`)
--- Delete these four lines after substituting.
+# Template. Substitute before installing (RUNBOOK.md §4 has the sed one-liner):
+#   __SERVICE_USER__  service account that owns ~/.qbo (the AdLoop host user)
+#   __HOME__          that user's home directory, absolute
+#   __MCP_PROXY__     absolute path to mcp-proxy (`command -v mcp-proxy`)
+# These are '#' comments so an un-stripped header is still a valid unit file.
 
 [Unit]
 Description=QuickBooks Online MCP server (stdio) bridged to HTTP by mcp-proxy
