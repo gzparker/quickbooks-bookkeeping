@@ -1,0 +1,26 @@
+# Ingress rule to add to ~/.cloudflared/config.yml on the orchestrator host.
+#
+# DO NOT paste this file over the existing config. Add only the qbo stanza,
+# and add it ABOVE the `service: http_status:404` catch-all - cloudflared
+# matches rules top to bottom, and the catch-all swallows everything after it.
+#
+# A malformed ingress file takes down EVERY hostname on this tunnel, including
+# adloop.webpixelpro.com and the admin UIs. Back up and validate first:
+#
+#   cp ~/.cloudflared/config.yml ~/.cloudflared/config.yml.bak.$(date +%F-%H%M)
+#   # ...edit...
+#   cloudflared tunnel ingress validate
+#   cloudflared tunnel ingress rule https://qbo.webpixelpro.com/mcp
+#   sudo systemctl reload cloudflared    # reload, not restart
+#
+# The second command prints which rule matched, confirming the new stanza is
+# reached rather than shadowed by an earlier one.
+
+ingress:
+  # ... existing hostnames stay exactly as they are, above this line ...
+
+  - hostname: qbo.webpixelpro.com
+    service: http://localhost:8091
+
+  # ... catch-all MUST remain last ...
+  - service: http_status:404

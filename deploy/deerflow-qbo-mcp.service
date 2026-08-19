@@ -1,0 +1,52 @@
+-- Placeholder substitution required before installing --
+--   __SERVICE_USER__  service account that owns ~/.qbo (AdLoop's host user)
+--   __HOME__          that user's home directory, absolute
+--   __MCP_PROXY__     absolute path to mcp-proxy (`command -v mcp-proxy`)
+-- Delete these four lines after substituting.
+
+[Unit]
+Description=QuickBooks Online MCP server (stdio) bridged to HTTP by mcp-proxy
+Documentation=https://github.com/gzparker/quickbooks-bookkeeping
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__SERVICE_USER__
+WorkingDirectory=__HOME__/.local/share/qbo-mcp
+
+# Bind to loopback only. Public reachability is the tunnel's job, and binding
+# to 0.0.0.0 would expose an unauthenticated MCP server on the host's public
+# interface, bypassing Cloudflare Access entirely.
+ExecStart=__MCP_PROXY__ --host 127.0.0.1 --port 8091 -- \
+    /usr/bin/env node __HOME__/.local/share/qbo-mcp/dist/index.js
+
+# Resolved before dotenv loads, so it cannot live in the env file itself.
+# Points the server at a writable store outside the install directory, so a
+# rotated refresh token survives reinstalls and never dirties the git checkout.
+Environment=QUICKBOOKS_TOKEN_STORE_PATH=__HOME__/.qbo/tokens.env
+
+# Read-only deployment. Upstream registers create/update/delete tools by
+# default; these three flags suppress all of them at registration time, so the
+# mutating tools are not merely refused, they are never advertised.
+# Removing any of these grants an agent unaudited write access to the general
+# ledger - upstream has no dry-run, preview, or audit log. See RUNBOOK.md.
+Environment=QUICKBOOKS_DISABLE_WRITE=true
+Environment=QUICKBOOKS_DISABLE_UPDATE=true
+Environment=QUICKBOOKS_DISABLE_DELETE=true
+
+Restart=on-failure
+RestartSec=5s
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=__HOME__/.qbo
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=qbo-mcp
+
+[Install]
+WantedBy=multi-user.target
