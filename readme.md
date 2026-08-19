@@ -1,5 +1,11 @@
 # quickbooks-bookkeeping
 
+> **DECOMMISSIONED (2026-08-19):** The hosted QuickBooks Online MCP was removed
+> from the Hetzner orchestrator — it was decided to be the wrong tool.
+> Bookkeeping is now done directly in the QuickBooks Online UI. This repo is
+> kept for accounting notes and history; AdLoop and every other service on the
+> box are unaffected. See `NOTES.md` for details. The text below is historical.
+
 Read-only QuickBooks Online access for Cursor (IDE and cloud agents), via
 Intuit's official MCP server hosted on the Hetzner orchestrator box.
 
