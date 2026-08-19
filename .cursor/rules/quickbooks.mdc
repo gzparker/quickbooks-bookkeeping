@@ -62,7 +62,15 @@ Also available: invoice PDF retrieval.
 rather than one record: open invoices over 60 days, bills due this week, all
 transactions for one customer.
 
-Searches are the expensive path. If a report answers the question, use it.
+**These tools are poorly specified.** Each takes one `criteria` parameter with
+an empty schema — no type, no properties, no description — so you are guessing
+an undocumented shape, and wrong guesses surface as opaque API errors rather
+than validation failures.
+
+Treat searching as iterative probing. Start with the narrowest criteria you can
+express, and if a call errors, say you are still probing rather than reporting
+the failure as a finding about the books. If a report can answer the question,
+it is not a close call — use the report.
 
 ## Orchestration patterns
 

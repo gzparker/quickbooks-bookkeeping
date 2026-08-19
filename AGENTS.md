@@ -73,12 +73,27 @@ The read half falls into four families:
 | --- | --- | --- |
 | Reports | `get_*` | profit and loss, balance sheet, cash flow, trial balance, general ledger, aged receivables/payables, customer/vendor balances |
 | Entity fetch | `get_*` by id | invoice, bill, customer, vendor, account, payment, journal entry |
-| Search | `search_*` | invoices, bills, customers, vendors, accounts, payments, journal entries |
+| Search | `search_*` | invoices, bills, customers, vendors, accounts, payments, journal entries — **see the warning below** |
 | Company | — | company info, preferences |
 
 **71 tools is still a lot, and it is a known weakness.** Do not skim the whole
 list every time. Reach for reports first — they answer most real questions in
 one call — and drop to entity search only when you need row-level detail.
+
+### The `search_*` tools are poorly specified — prefer reports
+
+Every `search_*` tool takes a single `criteria` parameter whose schema is
+**empty**: no type, no properties, no description. You are expected to guess an
+undocumented object shape, and a wrong guess returns a confusing API error
+rather than a validation message.
+
+The report tools, by contrast, are properly typed — real date parameters, a
+`Cash`/`Accrual` enum, column summarization options.
+
+So "reports first" is not a stylistic preference here, it is about which half of
+the surface actually works. When you must search, expect to iterate, and tell
+the operator you are probing rather than presenting a failed call as a finding.
+Full measurements in `docs/tool-surface-evaluation.md`.
 
 ## How to work
 
