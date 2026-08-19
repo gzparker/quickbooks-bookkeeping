@@ -197,11 +197,13 @@ cp config.yml "config.yml.bak.$(date +%Y%m%d-%H%M%S)"
 #    http_status:404 catch-all. The catch-all must remain LAST.
 #    (Edit by hand; there is no safe sed for this.)
 
-# 3. Validate BEFORE reloading. Do not skip this.
-cloudflared tunnel ingress validate --config ~/.cloudflared/config.yml
+# 3. Validate BEFORE reloading. Do not skip this. Note: --config is a global
+#    flag and must come BEFORE the `ingress` subcommand, not after it — the
+#    trailing form errors with "flag provided but not defined: -config".
+cloudflared tunnel --config ~/.cloudflared/config.yml ingress validate
 
 # 4. Confirm the new rule resolves to the right origin.
-cloudflared tunnel ingress rule --config ~/.cloudflared/config.yml \
+cloudflared tunnel --config ~/.cloudflared/config.yml ingress rule \
   https://qbo.webpixelpro.com/mcp
 
 # 5. Only once validation passes:
