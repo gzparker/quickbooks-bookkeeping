@@ -1,0 +1,13 @@
+{
+  "//": "Example Cursor MCP client config for the QuickBooks (QBO) MCP server.",
+  "//_secrets": "Header NAMES only. Do NOT commit real values. The CF-Access-Client-Secret is issued once by Cloudflare Access for the 'qbo-mcp' service token and must be pasted locally only.",
+  "mcpServers": {
+    "quickbooks": {
+      "url": "https://qbo.webpixelpro.com/mcp",
+      "headers": {
+        "CF-Access-Client-Id": "<QBO_MCP_SERVICE_TOKEN_CLIENT_ID>.access",
+        "CF-Access-Client-Secret": "<QBO_MCP_SERVICE_TOKEN_CLIENT_SECRET>"
+      }
+    }
+  }
+}
