@@ -1,5 +1,7 @@
 # Notes
 
+> Bookkeeping process and context notes are in [`BOOKKEEPING.md`](BOOKKEEPING.md).
+
 ## 2026-08-19 — Hosted QuickBooks Online MCP removed
 
 The hosted QuickBooks Online MCP was decided to be the wrong tool and was torn
