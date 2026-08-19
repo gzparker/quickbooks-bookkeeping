@@ -58,6 +58,14 @@ All tools are `get_*`, `read_*` or `search_*`. Broadly:
 Call `get_company_info` once at the start of a session to confirm the
 connection is live and that you are pointed at the expected company file.
 
+**The two families are not equally usable.** Report tools are properly typed —
+real dates, a `Cash`/`Accrual` enum, column summarization. Every `search_*` tool
+takes one `criteria` parameter with an *empty* schema, so you are guessing an
+undocumented shape; wrong guesses return opaque errors or empty result sets that
+masquerade as answers. Prefer reports, treat searching as iterative probing, and
+never present a failed search as a finding. See
+`docs/tool-surface-evaluation.md`.
+
 ## How to work
 
 1. **Confirm the period before you analyse it.** Fiscal year and accounting

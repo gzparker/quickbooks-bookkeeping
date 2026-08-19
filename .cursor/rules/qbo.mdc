@@ -70,6 +70,17 @@ on a mature company file returns a truncated window that looks complete but
 isn't. If a result set hits the page limit, say so rather than treating it as
 the full picture.
 
+**These tools are poorly specified — expect to iterate.** Each takes a single
+`criteria` parameter whose JSON schema is empty: no type, no properties, no
+description. You are guessing an undocumented shape, and a wrong guess comes
+back as an opaque API error, or worse as an empty result set that looks like a
+real answer.
+
+Two rules follow. Never report an empty or failed search as a finding about the
+books — say you are still working out the query. And when a report can answer
+the question, it is not a close call: the report tools are properly typed and
+these are not. Measurements in `docs/tool-surface-evaluation.md`.
+
 ## Single-record fetches
 
 `get_account`, `get_attachable`, `get_bill_payment`, `get_class`,
