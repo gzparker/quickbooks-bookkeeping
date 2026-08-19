@@ -239,6 +239,24 @@ curl -i -X POST \
 
 Both returning 200 means Cursor will connect.
 
+### Automating this later
+
+The steps above are dashboard steps. To let an agent do them instead, provision
+a Cloudflare API token with:
+
+| Scope | Needed for |
+| --- | --- |
+| Zone → DNS → Edit (on `webpixelpro.com`) | the `qbo` CNAME to the tunnel |
+| Account → Cloudflare Tunnel → Edit | reading and routing the tunnel |
+| Account → Access: Apps and Policies → Edit | the application, its policy, and CORS |
+| Account → Access: Service Tokens → Edit | minting a dedicated token |
+
+The existing `CLOUDFLARE_WORKER_ACCESS_TOKEN` is **not** sufficient: it is
+Workers-scoped, and returns `403 Authentication error` on both DNS records and
+the Zero Trust organization endpoint. Its list endpoints for Access and tunnels
+return an empty `200`, which is misleading — that is scoping, not an empty
+account.
+
 ---
 
 ## 7. Connect Cursor
