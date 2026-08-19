@@ -1,0 +1,38 @@
+# MCP server config — contains Cloudflare Access service token credentials.
+# Cloud agents get credentials via Cursor Background Agent env vars instead;
+# see SECRETS.md (also gitignored) for the canonical values to paste.
+.cursor/mcp.json
+
+# Credentials reference doc — kept locally only, never committed.
+SECRETS.md
+
+# Intuit OAuth material. NOTHING resembling a client secret, refresh token,
+# or realm id belongs in this repo — this repo is PUBLIC.
+tokens.env
+*.tokens.env
+.env
+.env.local
+
+# Cursor agent transcript and tool caches
+.cursor/agents/
+.cursor/tool-cache/
+
+# OS noise
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor swap files
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Local notes that shouldn't go to the world
+notes-local/
+TODO-local.md

@@ -1,0 +1,56 @@
+# Ingress stanza to add to ~/.cloudflared/config.yml on the orchestrator box.
+#
+# THIS FILE IS A FRAGMENT, NOT A CONFIG. Do not point cloudflared at it.
+# Copy the marked block into the live config, above the http_status:404
+# catch-all, then validate and reload (see RUNBOOK.md § "Publish the tunnel
+# hostname").
+#
+# The live config is shared by every *.webpixelpro.com hostname on the tunnel.
+# A malformed edit takes down ALL of them — the admin UI and the AdLoop MCP
+# server included — so back the file up first and never reload without
+# validating.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WHERE IT GOES (tail of the live config, unrelated entries elided)
+# ─────────────────────────────────────────────────────────────────────────────
+#
+#   tunnel: <existing tunnel UUID — leave unchanged>
+#   credentials-file: /home/aivirtualmachine/.cloudflared/<uuid>.json
+#
+#   ingress:
+#     # ... existing entries (admin UI, regen, persona-admin) unchanged ...
+#
+#     # Phase 2C (AdLoop MCP, 2026-05-18) — analytics daemon (GA4 + Google Ads).
+#     - hostname: adloop.webpixelpro.com
+#       service: http://localhost:8090
+#       originRequest:
+#         connectTimeout: 30s
+#         keepAliveConnections: 10
+#         keepAliveTimeout: 1h30m
+#         noTLSVerify: false
+#         disableChunkedEncoding: false
+#
+#   >>> INSERT THE BLOCK BELOW HERE — after adloop, before the catch-all <<<
+#
+#     # Catch-all (mandatory). cloudflared refuses to start without it, and it
+#     # must stay LAST.
+#     - service: http_status:404
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE BLOCK TO INSERT (copy from here down, keeping the 2-space indent)
+# ─────────────────────────────────────────────────────────────────────────────
+
+  # QuickBooks Online MCP (read-only) — bound to 127.0.0.1:8091 by
+  # deerflow-qbo-mcp.service. MCP via mcp-proxy: SSE at /sse, streamable-HTTP
+  # at /mcp. Cursor cloud agents must use /mcp. Auth: Cloudflare Access
+  # service token (no app-level auth). originRequest mirrors the adloop entry:
+  # the long keepAliveTimeout is what stops idle SSE sessions being culled
+  # mid-conversation.
+  - hostname: qbo.webpixelpro.com
+    service: http://localhost:8091
+    originRequest:
+      connectTimeout: 30s
+      keepAliveConnections: 10
+      keepAliveTimeout: 1h30m
+      noTLSVerify: false
+      disableChunkedEncoding: false

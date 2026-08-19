@@ -1,0 +1,14 @@
+{
+  "_comment_": "Template — copy to .cursor/mcp.json (gitignored) and paste the real Cloudflare Access service token credentials. For Cursor cloud Background Agents, set CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET as environment variables in the agent settings and switch the two values below to ${CF_ACCESS_CLIENT_ID} / ${CF_ACCESS_CLIENT_SECRET} instead of literals.",
+  "_endpoint_note_": "Use /mcp (Streamable HTTP), NOT /sse. Cursor cloud agents do not support the legacy SSE transport; the mcp-proxy daemon exposes both, so /mcp works for local Cursor IDE too.",
+  "_headers_note_": "Service-token credentials MUST go here in headers. Cursor's 'Client ID' / 'Client Secret' fields are for MCP OAuth flows and silently do nothing for Cloudflare Access.",
+  "mcpServers": {
+    "quickbooks": {
+      "url": "https://qbo.webpixelpro.com/mcp",
+      "headers": {
+        "CF-Access-Client-Id": "<paste-the-Access-service-token-Client-ID-here>.access",
+        "CF-Access-Client-Secret": "<paste-the-Access-service-token-Client-Secret-here>"
+      }
+    }
+  }
+}

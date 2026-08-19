@@ -1,0 +1,45 @@
+[Unit]
+Description=QuickBooks Online MCP server (read-only) bridged over HTTP via mcp-proxy
+Documentation=https://github.com/intuit/quickbooks-online-mcp-server
+Documentation=https://github.com/gzparker/quickbooks-bookkeeping/blob/main/RUNBOOK.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=aivirtualmachine
+Group=aivirtualmachine
+WorkingDirectory=/home/aivirtualmachine
+Environment=HOME=/home/aivirtualmachine
+Environment=PATH=/home/aivirtualmachine/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# mcp-proxy spawns the stdio child with an EMPTY base environment unless
+# --pass-environment is given, so the QUICKBOOKS_* values below MUST travel as
+# `-e KEY VALUE` pairs. Putting them in Environment= above would leave them
+# visible to mcp-proxy but invisible to the Node process, and the three
+# DISABLE flags would silently not apply — the server would come up with all
+# 142 tools registered, including 71 create/update/delete tools.
+#
+# QUICKBOOKS_TOKEN_STORE_PATH is both the config file the server reads at
+# startup and the file it rewrites when Intuit rotates the refresh token.
+# It must be absolute, and it cannot be set inside that file (it is resolved
+# before dotenv loads). Everything else — client id/secret, refresh token,
+# realm id, redirect uri, environment — lives inside tokens.env (0600).
+ExecStart=/home/aivirtualmachine/.local/bin/mcp-proxy \
+    /usr/bin/node /home/aivirtualmachine/qbo-mcp-server/dist/index.js \
+    --port 8091 --host 127.0.0.1 --allow-origin='*' \
+    -e QUICKBOOKS_TOKEN_STORE_PATH /home/aivirtualmachine/.qbo/tokens.env \
+    -e QUICKBOOKS_DISABLE_WRITE true \
+    -e QUICKBOOKS_DISABLE_UPDATE true \
+    -e QUICKBOOKS_DISABLE_DELETE true
+
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
