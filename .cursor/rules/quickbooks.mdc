@@ -1,0 +1,123 @@
+---
+description: QuickBooks Online MCP orchestration — reports, entity lookups, and search
+globs:
+alwaysApply: true
+---
+
+# QuickBooks Online — AI Orchestration Rules
+
+You have read-only access to the business's QuickBooks Online company through
+the `quickbooks` MCP server. These rules cover how to use it well.
+
+Read `AGENTS.md` first for scope boundaries and the read-only rationale.
+
+## Naming note
+
+Upstream registers tools in both `get_x` and `get-x` forms depending on the
+entity. **Trust your actual tool list over the names written here** — this file
+describes capabilities and when to use them, not exact identifiers.
+
+## Tool inventory
+
+### Start here
+
+| Tool | When to use |
+| --- | --- |
+| company info | Confirm which company you are connected to before reporting figures. Cheap, and prevents answering about the wrong entity. |
+| preferences | Check whether accrual or cash is the company default, whether classes/departments are enabled, and the fiscal year start. |
+
+### Reports — prefer these
+
+One call, pre-aggregated, and they match what the operator sees in QuickBooks.
+Reach for these before anything else.
+
+| Report | Answers |
+| --- | --- |
+| Profit and Loss | "How did we do?" Revenue, expenses, net income over a period. |
+| Balance Sheet | "What do we own and owe?" Point-in-time position. |
+| Cash Flow | "Where did the money actually go?" Operating, investing, financing. |
+| Trial Balance | Every account with debit/credit balances. Use when something does not tie. |
+| General Ledger | Transaction-level detail per account. The drill-down when a report line looks wrong. |
+| Aged Receivables | Who owes us, bucketed by age. The first call for collections questions. |
+| Aged Payables | What we owe, bucketed by age. |
+| Customer Balance / Customer Sales | Per-customer position and revenue. |
+| Vendor Balance / Vendor Expenses | Per-vendor position and spend. |
+
+Reports take `start_date` / `end_date` and usually an accounting-method
+parameter. **Always pass dates explicitly.** Defaults vary and an unstated
+range is the most common source of a wrong answer.
+
+### Entity fetch — by id
+
+`get_<entity>` for invoice, bill, customer, vendor, account, payment, journal
+entry, estimate, purchase, deposit, transfer, item, employee, credit memo,
+refund receipt, sales receipt, purchase order, bill payment, time activity,
+class, department, term, payment method, tax code/rate/agency, attachable.
+
+Also available: invoice PDF retrieval.
+
+### Search — filtered lists
+
+`search_<entity plural>` across the same entity types. Use when you need a set
+rather than one record: open invoices over 60 days, bills due this week, all
+transactions for one customer.
+
+Searches are the expensive path. If a report answers the question, use it.
+
+## Orchestration patterns
+
+### "How are we doing?"
+
+1. Company info — confirm the company.
+2. Profit and Loss for the period, with the prior comparable period.
+3. Only then drill down. Do not open with a transaction dump.
+
+### "Who owes us money?"
+
+1. Aged Receivables — this is the whole answer for most asks.
+2. Search invoices filtered to open status only if the operator wants line
+   detail or wants to act on specific ones.
+
+Do not reconstruct AR by listing invoices and subtracting payments. You will get
+a number that disagrees with QuickBooks, and the operator will believe theirs.
+
+### "Why is this number wrong?"
+
+1. Trial Balance — find the account that looks off.
+2. General Ledger for that account over the period — see the transactions.
+3. Fetch the specific entities by id for the ones that look suspect.
+
+### "What did we spend on X?"
+
+1. Vendor Expenses if X is a vendor.
+2. Profit and Loss if X is an expense category — the account is already there.
+3. Search purchases/bills only when you need individual transactions.
+
+## Hard rules
+
+1. **Never hand-total when a report exists.** Summing entity lists to produce
+   revenue, AR, or expense totals is the single most damaging thing you can do
+   here — the number will drift from the books and poison trust in your other
+   answers.
+2. **Always state date range and accounting method** alongside any figure. If
+   the operator did not specify, name what you used and offer the alternative.
+3. **Quote figures exactly.** No silent rounding, no reformatting. If a number
+   looks implausible, show it and flag it rather than adjusting.
+4. **Cash vs accrual changes answers materially.** When a question touches
+   revenue or profit, confirm which the operator means if it is not obvious.
+5. **Flag data-quality problems rather than reporting around them** —
+   uncategorized transactions, unreconciled accounts, negative inventory, stale
+   AR. These are usually the actual finding.
+6. **No tax or compliance advice.** Report what the books say; route
+   deductibility and filing questions to their accountant, explicitly.
+7. **Writes are not available.** Do not attempt them or ask for them to be
+   enabled. Describe the change and let the operator make it.
+
+## When tools fail
+
+Persistent auth or token errors across every tool almost always mean the
+QuickBooks refresh token lapsed (~100-day window). That is infra-plane: report
+the exact error and stop. Do not retry in a loop; do not attempt workarounds.
+
+`AGENTS.md` lists the other two recurring infra causes — Access CORS and the
+`/mcp` versus `/sse` endpoint distinction.

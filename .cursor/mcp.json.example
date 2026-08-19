@@ -1,0 +1,12 @@
+{
+  "_comment_": "Template. Copy to .cursor/mcp.json (gitignored) and supply the Cloudflare Access service token. Two endpoint notes that cost real debugging time: use /mcp and not /sse, because Cursor Cloud Agents speak Streamable HTTP only; and put the service token in `headers`, never in Cursor's Client ID / Client Secret fields, which are for MCP OAuth flows and silently ignore these values. For cloud agents, set CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET in the agent's environment and keep the ${...} form below.",
+  "mcpServers": {
+    "quickbooks": {
+      "url": "https://qbo.webpixelpro.com/mcp",
+      "headers": {
+        "CF-Access-Client-Id": "${CF_ACCESS_CLIENT_ID}",
+        "CF-Access-Client-Secret": "${CF_ACCESS_CLIENT_SECRET}"
+      }
+    }
+  }
+}
