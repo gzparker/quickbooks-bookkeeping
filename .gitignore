@@ -1,0 +1,36 @@
+# MCP server config — contains Cloudflare Access service token credentials.
+# Cloud agents get credentials via agent env vars instead; see SECRETS.md.
+.cursor/mcp.json
+
+# Credentials reference doc — kept locally only, never committed.
+SECRETS.md
+
+# Filled-in copies of the env template. The real one lives at ~/.qbo/tokens.env
+# on the orchestrator host and holds the rotating refresh token.
+deploy/qbo-mcp.env
+*.env
+!*.env.example
+
+# Cursor agent transcript and tool caches
+.cursor/agents/
+.cursor/tool-cache/
+
+# OS noise
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor swap files
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Local notes that shouldn't go to the world
+notes-local/
+TODO-local.md
