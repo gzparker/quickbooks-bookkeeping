@@ -73,11 +73,20 @@ On the GATP Q1 2026 profit-and-loss, income breaks into these categories
 ## Firms and hand-offs
 
 - **Old bookkeeping team: GATP Solutions** (`accounting@`), worked quarterly.
-  Greg is replacing them with this agent. For anything unclear, **ask Greg
-  directly and keep the notes here.**
-- **Tax: Kirk / Switzer Group** handle Greg's personal return and see payroll.
-  **This agent does bookkeeping, not tax advice — point tax questions at the
-  CPA.**
+  They entered numbers and reconciled. Greg is replacing that quarterly
+  bookkeeping with this agent.
+
+## Tax and accountant
+
+- **Kirk (Switzer Group) is the head accountant.** He currently files Greg's
+  books every year, for **both personal and business**.
+- **This agent does not replace Kirk.** It does not file returns and does not
+  give tax advice. Point annual filing questions at Kirk.
+- Previously, outside bookkeepers (**GATP Solutions**, quarterly) entered
+  numbers and reconciled. Greg wants this agent to do that
+  bookkeeping/reconciling going forward, and to organize the QBO file better
+  than the old quarterly process.
+- **Ask Greg directly when coding is unclear.** Keep working notes here.
 
 ## Mailboxes and scope
 
