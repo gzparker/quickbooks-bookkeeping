@@ -1,0 +1,117 @@
+---
+description: QuickBooks Online MCP orchestration — read-only bookkeeping queries
+globs:
+alwaysApply: true
+---
+
+# QuickBooks Online MCP — AI Orchestration Rules
+
+You have access to the `quickbooks` MCP server, a **read-only** bridge to the
+operator's QuickBooks Online company file. These rules cover how to use it well.
+
+Read `AGENTS.md` in this workspace for the behavioural brief. This file is the
+tool-level reference.
+
+## Hard constraint: this connection cannot write
+
+The server runs with `QUICKBOOKS_DISABLE_WRITE`, `QUICKBOOKS_DISABLE_UPDATE`
+and `QUICKBOOKS_DISABLE_DELETE` all `true`. The 71 `create_*` / `update_*` /
+`delete_*` tools are never registered. Only 71 read tools exist.
+
+When asked to change something, describe the change precisely and hand it to the
+operator to do in the QuickBooks UI. Do not look for a workaround, and do not
+suggest re-enabling writes as a casual next step — that is a production
+systemd change.
+
+## Session opener
+
+| Tool | When | Notes |
+|---|---|---|
+| `get_company_info` | First call of every session | Confirms the connection works and that you're pointed at the expected company file |
+| `get_preferences` | Before any analysis | Reveals accounting method (cash vs accrual) and fiscal year start — both change every number you report |
+
+If `get_company_info` fails, do not proceed to guess at data. Report the error
+verbatim and stop; see `AGENTS.md` → Escalation.
+
+## Reports (prefer these over reconstruction)
+
+| Tool | Question it answers |
+|---|---|
+| `get_profit_and_loss` | Revenue, expenses, net income for a period |
+| `get_balance_sheet` | Assets, liabilities, equity at a date |
+| `get_cash_flow` | Operating / investing / financing cash movement |
+| `get_trial_balance` | All account balances — the reconciliation starting point |
+| `get_general_ledger` | Transaction-level detail per account |
+| `get_aged_receivables` | Who owes money, bucketed by age |
+| `get_aged_payables` | What is owed to vendors, bucketed by age |
+| `get_customer_balance` / `get_customer_sales` | Per-customer position and revenue |
+| `get_vendor_balance` / `get_vendor_expenses` | Per-vendor position and spend |
+
+**Never hand-compute a figure a report already produces.** Summing invoices to
+derive revenue ignores journal entries, credit memos, accrual timing and
+adjustments, so your total will disagree with what the operator sees on screen —
+and their screen wins. Use `search_*` to *explain* a report number, not to
+replace it.
+
+## Search tools
+
+`search_accounts`, `search_attachables`, `search_bill_payments`, `search_bills`,
+`search_budgets`, `search_classes`, `search_credit_memos`, `search_customers`,
+`search_departments`, `search_deposits`, `search_employees`, `search_estimates`,
+`search_invoices`, `search_items`, `search_journal_entries`,
+`search_payment_methods`, `search_payments`, `search_purchase_orders`,
+`search_purchases`, `search_refund_receipts`, `search_sales_receipts`,
+`search_tax_agencies`, `search_tax_codes`, `search_tax_rates`, `search_terms`,
+`search_time_activities`, `search_transfers`, `search_vendor_credits`,
+`search_vendors`.
+
+Always pass an explicit date range. Results are paginated — an unbounded search
+on a mature company file returns a truncated window that looks complete but
+isn't. If a result set hits the page limit, say so rather than treating it as
+the full picture.
+
+## Single-record fetches
+
+`get_account`, `get_attachable`, `get_bill_payment`, `get_class`,
+`get_credit_memo`, `get_customer`, `get_department`, `get_deposit`,
+`get_employee`, `get_estimate`, `get_invoice_pdf`, `get_journal_entry`,
+`get_payment`, `get_payment_method`, `get_purchase`, `get_purchase_order`,
+`get_refund_receipt`, `get_sales_receipt`, `get_tax_agency`, `get_tax_code`,
+`get_tax_rate`, `get_term`, `get_time_activity`, `get_transfer`,
+`get_vendor_credit`, `get-bill`, `get-vendor`, `read_invoice`, `read_item`.
+
+Note the two hyphenated legacy names (`get-bill`, `get-vendor`) — they are
+spelled that way upstream.
+
+## Orchestration patterns
+
+**"How did we do last quarter?"**
+`get_preferences` → `get_profit_and_loss` for the period → if anything looks
+off, `get_general_ledger` on the specific account → `search_*` for the
+individual transactions.
+
+**"Who owes us money?"**
+`get_aged_receivables` → `search_invoices` filtered to unpaid for the specific
+customers → `get_customer` for contact context.
+
+**"Why is this expense category so high?"**
+`get_profit_and_loss` to confirm the delta is real → `get_general_ledger` for
+that account → `search_purchases` / `search_bills` over the period →
+`get_vendor_expenses` to see if it concentrates in one vendor.
+
+**"Are the books clean?"**
+`get_trial_balance` → look for an Uncategorised Income / Uncategorised Expense /
+Ask My Accountant balance → `search_journal_entries` and `search_purchases` to
+find what's sitting there. Report findings; do not reclassify (you can't).
+
+## Reporting standards
+
+- Quote every figure with its basis and source: *"$X (accrual, per
+  `get_profit_and_loss`, 2026-04-01..2026-06-30)"*.
+- State the accounting method whenever you report a period figure. Cash vs
+  accrual can differ by a lot and the operator may not specify which they meant.
+- Flag data-quality caveats up front: unreconciled accounts, uncategorised
+  balances, an open period. A confident number from unreconciled books is worse
+  than a caveated one.
+- Summarise first, offer detail second. Do not paste raw JSON.
+- No tax or legal conclusions. Report what the books say and point at the CPA.
