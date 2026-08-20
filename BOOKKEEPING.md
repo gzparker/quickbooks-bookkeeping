@@ -41,6 +41,10 @@ substitute for what QBO actually shows.
 >
 > **Discovered coding rules:** for coding rules observed from the already-labeled
 > books (appended as we find them), see [`RULES.md`](RULES.md).
+>
+> **Reconciliation statements (Google Drive):** for where the source statement
+> PDFs are filed (parent folder, per-year layout, AMEX / Chase / Comerica
+> subfolders, and the AMEX card → QBO mapping), see [`STATEMENTS.md`](STATEMENTS.md).
 
 **This repo is public.** No secrets, no bank last-fours, no full account
 numbers, no legal or personal detail, no SSNs. Dollar amounts are avoided
@@ -146,9 +150,13 @@ On the GATP Q1 2026 profit-and-loss, income breaks into these categories
 
 ## Documents
 
-- GATP-owned INTAGENT financials workbooks exist, and the AMEX PDFs live in
-  Greg's Google Drive. (Financials and AMEX PDFs live in Greg's Google Drive —
-  that's enough; file/folder IDs are not needed here.)
+- GATP-owned INTAGENT financials workbooks exist, and the reconciliation
+  statement PDFs (AMEX, Chase, Comerica) live in Greg's Google Drive.
+- **Reconciliation statements are filed in Drive by year**, under a parent folder
+  named `Intagent`, with per-institution subfolders. See
+  [`STATEMENTS.md`](STATEMENTS.md) for the folder structure, the AMEX card → QBO
+  mapping, and current 2026 status. (Only the parent folder link is recorded;
+  individual PDF names and per-subfolder IDs are not needed here.)
 
 ---
 

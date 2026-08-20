@@ -37,6 +37,27 @@ _All observed from existing books, not invented._
 
 ---
 
+## Statement filing on Google Drive — observed 2026-08-19
+
+Observed from Greg's Drive on 2026-08-19 (not invented). Reconciliation source
+statements are filed under a Google Drive parent folder named **`Intagent`**
+(owned by `intagent.talk@gmail.com`), **one folder per year**, with
+per-institution subfolders: **AMEX** (two cards — Simply Cash and Delta),
+**Chase**, and **Comerica**.
+
+- **When a new year starts, create a new year folder** under `Intagent` and file
+  every statement needed for that year's reconciliation inside it.
+- The two AMEX cards map to QBO as: **Simply Cash → `20000 Credit Card – AMEX`**
+  (primary business card); **Delta → Amex Delta**.
+- **Raymond James is deprecated** — do **not** create a Raymond James folder for
+  2026+; keep old year folders as history (see [`BANKS.md`](BANKS.md)).
+
+See [`STATEMENTS.md`](STATEMENTS.md) for the full folder map, the AMEX card → QBO
+mapping, and current 2026 status.
+
+---
+
 _See [`BOOKKEEPING.md`](BOOKKEEPING.md) for the working rules and surrounding
-process notes, [`BANKS.md`](BANKS.md) for the bank/card map, and
-[`ACCOUNTS.md`](ACCOUNTS.md) for the chart-of-accounts structure._
+process notes, [`BANKS.md`](BANKS.md) for the bank/card map,
+[`ACCOUNTS.md`](ACCOUNTS.md) for the chart-of-accounts structure, and
+[`STATEMENTS.md`](STATEMENTS.md) for where reconciliation statements are filed._
