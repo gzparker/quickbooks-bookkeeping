@@ -31,22 +31,6 @@ Plain-English notes on how the books are kept. Process and context only.
 The QuickBooks Online (QBO) UI is the source of truth. Nothing here is a
 substitute for what QBO actually shows.
 
-> ## HARD RULE (Greg, 2026-08-19): do not reinvent anything
->
-> **Last quarter is already reconciled.** This agent must **not recode, reopen,
-> or restructure closed periods.** Use the existing chart of accounts and bank
-> flow **as they are** — [`ACCOUNTS.md`](ACCOUNTS.md) and [`BANKS.md`](BANKS.md)
-> describe how the file **already works**, not a redesign proposal.
->
-> - **Fiscal year starts in January**, so "last quarter" = **Q2 2026 (Apr–Jun)**
->   unless a note here already says otherwise. Q2 2026 is closed.
-> - **Current work is Q3 2026** — plus anything still sitting in
->   pending/uncategorized that is clearly *after* the last close. **Even then,
->   ask Greg before moving any amount that might belong in a closed quarter.**
-> - **Kirk (Switzer Group) stays head accountant** (annual personal + business
->   filing). **GATP Solutions** were the old quarterly team who did that
->   reconciling; their closed, reconciled quarters are left as they are.
-
 > **Bank and card map:** for which account is which (roles, inflows, outflows,
 > deprecated accounts, and open questions for Greg), see [`BANKS.md`](BANKS.md).
 >
