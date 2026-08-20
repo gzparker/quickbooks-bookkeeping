@@ -6,6 +6,11 @@ substitute for what QBO actually shows.
 
 > **Bank and card map:** for which account is which (roles, inflows, outflows,
 > deprecated accounts, and open questions for Greg), see [`BANKS.md`](BANKS.md).
+>
+> **Chart of accounts structure:** for how income, COGS, and expense accounts
+> are organized and how work should be coded to them (structure only, no dollar
+> amounts; as of 2026-08-19, pending Greg confirmation), see
+> [`ACCOUNTS.md`](ACCOUNTS.md).
 
 **This repo is public.** No secrets, no bank last-fours, no full account
 numbers, no legal or personal detail, no SSNs. Dollar amounts are avoided
