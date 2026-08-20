@@ -1,5 +1,32 @@
 # Bookkeeping working notes
 
+## Working rules (hard rules — read first)
+
+Greg's working method, recorded 2026-08-19. These govern everything else in this
+repo. When in doubt, follow these over any inferred structure.
+
+1. **Do not reinvent.** Last quarter is already reconciled and already labeled by
+   the prior bookkeepers. **Do not recode, reopen, or restructure closed
+   periods.**
+2. **Document as you discover.** When you see how something was already coded or
+   reconciled, write that rule into this repo (git) so we follow it next time.
+   The repo is the **playbook, not a redesign.** Append newly observed rules to
+   [`RULES.md`](RULES.md).
+3. **Fiscal year starts January.** Last closed / reconciled quarter to assume:
+   **Q2 2026 (Apr–Jun)** — unless QBO reconcile dates say otherwise. (A later
+   pass will record the actual reconcile-through dates.)
+4. **Current work is only activity after that close** (Q3 2026 onward) or items
+   still pending that are clearly new. **Ask Greg before touching anything that
+   might belong in a closed quarter.**
+5. **Use the existing chart of accounts** (40s income / 50s COGS / 60s overhead)
+   and the confirmed money flow in [`BANKS.md`](BANKS.md). [`ACCOUNTS.md`](ACCOUNTS.md)
+   describes the file **as it is**, not a proposal.
+6. **Kirk (Switzer Group) is the head accountant** — annual personal and
+   business. **GATP** was the old quarterly bookkeeping team.
+7. **Chrome: exactly one tab.** Never open a second QBO tab.
+
+---
+
 Plain-English notes on how the books are kept. Process and context only.
 The QuickBooks Online (QBO) UI is the source of truth. Nothing here is a
 substitute for what QBO actually shows.
@@ -27,6 +54,9 @@ substitute for what QBO actually shows.
 > are organized and how work should be coded to them (structure only, no dollar
 > amounts; as of 2026-08-19, pending Greg confirmation), see
 > [`ACCOUNTS.md`](ACCOUNTS.md).
+>
+> **Discovered coding rules:** for coding rules observed from the already-labeled
+> books (appended as we find them), see [`RULES.md`](RULES.md).
 
 **This repo is public.** No secrets, no bank last-fours, no full account
 numbers, no legal or personal detail, no SSNs. Dollar amounts are avoided
