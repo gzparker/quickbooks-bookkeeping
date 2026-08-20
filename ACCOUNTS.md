@@ -19,6 +19,12 @@ internal QBO chart-of-accounts code, not bank or tax data.
 > or Kirk (Switzer Group, head accountant) signs off. This is the picture **so
 > far** — accounts could be renamed, merged, or retired.
 
+> **Not a redesign.** This documents the chart of accounts **as it already
+> works** so new work can be coded consistently; the cleanup/consolidation items
+> below are open questions for Greg, not changes to make. Per the hard rule in
+> [`BOOKKEEPING.md`](BOOKKEEPING.md), closed periods (last quarter = Q2 2026,
+> Apr–Jun) must **not** be recoded or restructured.
+
 ---
 
 ## Income — `40000` Sales and subs
