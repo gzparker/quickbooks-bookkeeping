@@ -45,6 +45,25 @@ but the two cards are the same, and each maps to a QBO account:
 
 See [`BANKS.md`](BANKS.md) for the card roles and feed status.
 
+In 2026, the **Simply Cash** folder already holds monthly statement PDFs, one
+per statement date, covering **Jan–Aug 2026**. **Delta** is a sibling folder in
+the same 2026 AMEX folder. (Individual PDF filenames are not listed here — some
+folder/file titles include the card's last four, which is intentionally kept out
+of this public repo.)
+
+## Chase — two accounts
+
+The **Chase** folder splits by which live Chase account the statements belong to.
+These are the **same two Chase accounts already documented** in
+[`BANKS.md`](BANKS.md):
+
+- **Online VA Team Chase** — the main operating account.
+- **WebPixel Chase** — the WebPixel Pro / consulting account.
+
+In 2025, the `chase` folder has one subfolder for each. Names only here —
+even where the Drive titles include a bank last-four, it is deliberately omitted
+(public repo).
+
 ## Deprecated / not carried forward
 
 - **Raymond James:** the 2025 year folder also has a `raymond james` folder.
@@ -55,9 +74,12 @@ See [`BANKS.md`](BANKS.md) for the card roles and feed status.
 ## 2026 status (as of 2026-08-19)
 
 - The **2026** year folder currently contains **only AMEX** (Delta + Simply
-  Cash).
+  Cash). Simply Cash has monthly statement PDFs for **Jan–Aug 2026**; Delta sits
+  alongside it.
 - **Chase** and **Comerica** folders are **not created yet for 2026.** Do not
-  assume they exist — they should be added when those statements are filed.
+  assume they exist — they should be added when those statements are filed. When
+  the 2026 Chase folder is created, expect the same **Online VA Team Chase** /
+  **WebPixel Chase** split seen in 2025.
 
 ---
 
