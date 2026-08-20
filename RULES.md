@@ -171,8 +171,45 @@ silently recoded.
   categories.
 - **Amazon posts split by direction.** In posted history, Amazon **charges**
   land in `60102` Software while **credits** land in `65200` Technology.
+  _For **new** posts, Greg's guidance below overrides this: keep all Amazon in
+  one bucket — see [Greg's expense coding](#gregs-expense-coding--confirmed-2026-08-19)._
 - **VULTR posted under payee Vudu.com.** Observed in posted history — the VULTR
   charge is booked against a payee named **Vudu.com**.
+  _For **new** posts, Greg's guidance below overrides this: VULTR is hosting
+  (`60102`) and the payee should never be left as Vudu.com — see
+  [Greg's expense coding](#gregs-expense-coding--confirmed-2026-08-19)._
+
+---
+
+## Greg's expense coding — confirmed 2026-08-19
+
+Greg's own coding preferences for expenses, **observed and confirmed with Greg**
+on 2026-08-19 (not inferred from the feed rules — this is how he says he wants
+loose coding to go). Recorded here as guidance for **new posts going forward**.
+It does **not** recode closed periods: per the hard rule and the reconcile-through
+dates above, **Q1–Q2 2026 stay as posted; these apply Q3 2026 onward (pending).**
+
+Where this guidance conflicts with the 50 QBO bank rules or the posted history,
+**Greg's guidance wins for new posts** — the existing rules and history are still
+documented above **as-is** and are not being rewritten.
+
+- **Amazon — all of it — is a business expense.** Anything Amazon (Amazon
+  Marketplace, **AWS**, even **AMZN Pharmacy**) goes to the general bucket:
+  **Software & Web-hosting / software-supplies (`60102`)**. **Do not split
+  Amazon across many accounts.** _(This overrides the observed Amazon
+  charge/credit split into `60102`/`65200`, and the feed rule #4 that sends
+  `Amazon web services` to `50108`, for new posts.)_
+- **VULTR is hosting / computer → `60102`.** **Never leave the payee as
+  Vudu.com** — set the payee to VULTR. _(Overrides the observed VULTR-under-Vudu.com
+  posting for new posts.)_
+- **Restaurants (e.g. Rances) → Meals and Entertainment (`60150`).**
+- **CRR / garbage → office Garbage & Recycling.** Do **not** treat as personal.
+- **Ad Creative (or similar) credits → internet advertising refund →
+  `60000` Advertising and Promotion.**
+- **Greg codes loose — do not over-split.** Only stop and **ask** when
+  something looks **clearly personal**.
+- **Closed quarters are still not recoded.** These rules apply **going forward**
+  (Q3 2026 and later, pending).
 
 ---
 
