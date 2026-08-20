@@ -1,0 +1,119 @@
+# Bank and card map
+
+Plain-English map of the bank and credit-card accounts in the one QBO company
+(**INTAGENT** — see [`BOOKKEEPING.md`](BOOKKEEPING.md)) and what each one is for.
+Roles, not numbers. The QuickBooks Online (QBO) UI is the source of truth.
+
+**This repo is public.** No secrets, no bank last-fours, no full account
+numbers, no live balances, no dollar amounts from registers, no EINs. Accounts
+are named by their role and platform, not by any bank-issued digits. Where a
+title below shows a number (e.g. `10000`, `20000`), that is the internal QBO
+chart-of-accounts code, not bank data.
+
+Items marked _(inferred)_ are read off transaction patterns, not confirmed by
+Greg. Treat every inferred line as **as of 2026-08-19, pending Greg
+confirmation.**
+
+---
+
+## How money flows (short version)
+
+Two operating inflows feed the business, and each has a home account:
+
+- **Stripe payouts and international client wires** (e.g. association / VCS
+  clients) land in **Chase operating**.
+- **Domain-name deposits** (GoDaddy) land in **Comerica**.
+- **Consulting and MBK Real Estate** money lands in **WebPixel Pro Chase**.
+
+**Payroll and payroll taxes** are paid out of **Comerica**. **Credit cards** are
+paid from **operating (Chase)** and **WebPixel Pro Chase**. **VCS
+cost-of-goods labor wires** (Philippines reseller / VCS) go out of **Chase
+operating**.
+
+---
+
+## Bank accounts
+
+### Chase Checking — main operating
+- **Role:** primary operating account.
+- **In:** Stripe payouts; international client wires (e.g. association / VCS
+  clients).
+- **Out:** Philippines reseller / VCS labor wires (cost of goods); AMEX
+  autopay; some shareholder distributions; wire fees.
+- **Note:** the QBO display name carries a bank-side account fragment; it is
+  intentionally omitted here (public repo). Identify it in QBO by role, "main
+  operating."
+
+### Checking Comerica (`10000`)
+- **Role:** payroll and payroll-tax account.
+- **In:** GoDaddy / domain-name deposits; occasional other.
+- **Out:** payroll and payroll-tax withdrawals.
+
+### WebPixel Pro Chase Checking
+- **Role:** WebPixel Pro / consulting account.
+- **In:** MBK Real Estate ACH; consulting deposits.
+- **Out:** large American Express payments.
+
+### Intagent 10 Year Note — Chase Savings
+- **Role:** savings holding a 10-year note.
+- **Activity:** only tiny interest posts; effectively **dormant**. _(inferred —
+  pending Greg confirmation)_
+
+### Chase Savings
+- **Role:** unused empty shell. No activity. _(inferred — pending Greg
+  confirmation)_
+
+### 10 Year Note Repayment
+- **Role:** empty placeholder. No activity. _(inferred — pending Greg
+  confirmation)_
+
+### PPP Fund 60% Payroll and PPP Fund 40% Others (subs of Comerica)
+- **Role:** legacy PPP tracking sub-accounts under Comerica.
+- **Activity:** empty / dead. Kept for history only. _(inferred — pending Greg
+  confirmation)_
+
+---
+
+## Credit cards
+
+### `20000` Credit Card — AMEX
+- **Role:** primary business card (software, ads, travel).
+- **Paid from:** Chase operating.
+
+### Amex Delta
+- **Role:** secondary card; looks mixed business / personal. _(inferred —
+  pending Greg confirmation)_
+- **Feed status:** bank feed is **stale — last updated May 2026.** Do **not**
+  treat this card as current until Greg confirms.
+
+---
+
+## Deprecated
+
+### Raymond James Short Term Savings — DEPRECATED
+- **Status:** disconnect is done; account is inactive; **history kept.**
+- **What it really was:** an investment / brokerage account that had been
+  **miscoded as a Bank** account.
+- **Sub-accounts:** the ETF / fund sub-accounts under it were inactivated
+  together with the parent. QBO auto-posted opening-balance-equity adjustments
+  when they were inactivated (amounts intentionally not described here).
+
+---
+
+## Flags for Greg
+
+- **Raymond James subs:** confirm whether the inactivated ETF / fund
+  sub-accounts should be **reactivated**, or stay inactive with history kept.
+- **Amex Delta:** confirm whether this card is current business use before we
+  rely on its (stale, May 2026) feed, and whether it is business, personal, or
+  mixed.
+- **Chase Savings shells** (`Chase Savings`, `10 Year Note Repayment`) and the
+  **PPP Fund subs:** confirm these are dead and can stay dormant / hidden.
+- **Intagent 10 Year Note savings:** confirm it is dormant apart from interest.
+
+---
+
+_See [`BOOKKEEPING.md`](BOOKKEEPING.md) for the surrounding process notes
+(income mix, payroll, close process, firms and hand-offs). Kirk (Switzer Group)
+remains the head accountant for annual personal and business filing; GATP
+Solutions were the old quarterly bookkeepers._

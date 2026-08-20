@@ -4,6 +4,9 @@ Plain-English notes on how the books are kept. Process and context only.
 The QuickBooks Online (QBO) UI is the source of truth. Nothing here is a
 substitute for what QBO actually shows.
 
+> **Bank and card map:** for which account is which (roles, inflows, outflows,
+> deprecated accounts, and open questions for Greg), see [`BANKS.md`](BANKS.md).
+
 **This repo is public.** No secrets, no bank last-fours, no full account
 numbers, no legal or personal detail, no SSNs. Dollar amounts are avoided
 unless a number is part of the process itself. Do not paste customer lists or
@@ -78,6 +81,10 @@ On the GATP Q1 2026 profit-and-loss, income breaks into these categories
   the feed and make the account inactive in QBO.
 - **Keep the historical transactions** — deactivating the account preserves
   them; do not delete anything.
+- It was really an investment/brokerage account **miscoded as a Bank**; its
+  ETF/fund sub-accounts were inactivated with the parent. See
+  [`BANKS.md`](BANKS.md) for the full account-by-account map and the open
+  question of whether those subs should be reactivated.
 
 ## Firms and hand-offs
 
